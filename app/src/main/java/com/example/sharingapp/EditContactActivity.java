@@ -23,10 +23,7 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
     private Contact contact;
     private ContactController contact_controller = new ContactController(contact);
 
-    private ItemList item_list = new ItemList();
-    private ItemListController item_list_controller = new ItemListController(item_list);
-
-    private boolean on_create_update = false;
+    private boolean on_create_update = true;
     private EditText email;
     private EditText username;
     private Context context;
@@ -38,26 +35,14 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
 
-        username = (EditText) findViewById(R.id.username);
-        email = (EditText) findViewById(R.id.email);
-
         Intent intent = getIntent();
         int pos = intent.getIntExtra("position", 0);
 
         context = getApplicationContext();
-
         contact_list_controller.addObserver(this);
         contact_list_controller.loadContacts(context);
 
-        on_create_update = true;
-
-        item_list_controller.addObserver(this);
-        item_list_controller.loadItems(context);
-
         on_create_update = false;
-
-        username.setText(contact_controller.getUsername());
-        email.setText(contact_controller.getEmail());
     }
 
     public void saveContact(View view) {
@@ -91,8 +76,6 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
             return;
         }
 
-        contact_list_controller.removeObserver(this);
-
         // End EditContactActivity
         finish();
     }
@@ -103,16 +86,26 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
             return;
         }
 
-        contact_list_controller.removeObserver(this);
-
         // End EditContactActivity
         finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        contact_list_controller.removeObserver(this);
+    }
+
     public void update() {
         if (on_create_update) {
+
             contact = contact_list_controller.getContact(pos);
             contact_controller = new ContactController(contact);
+
+            username = (EditText) findViewById(R.id.username);
+            email = (EditText) findViewById(R.id.email);
+
+            // Update the view
             username.setText(contact_controller.getUsername());
             email.setText(contact_controller.getEmail());
         }
