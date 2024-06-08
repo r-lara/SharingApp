@@ -110,7 +110,7 @@ public class AddItemActivity extends AppCompatActivity {
         }
 
 
-        Item item = new Item(title_str, maker_str, description_str, new Dimensions(length_str, width_str, height_str), image, null);
+        Item item = new Item(title_str, maker_str, description_str, image, null);
         ItemController item_controller = new ItemController(item);
         item_controller.setDimensions(length_str, width_str, height_str);
 

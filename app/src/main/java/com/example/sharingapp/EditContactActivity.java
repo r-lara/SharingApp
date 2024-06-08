@@ -23,6 +23,9 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
     private Contact contact;
     private ContactController contact_controller = new ContactController(contact);
 
+    private ItemList item_list = new ItemList();
+    private ItemListController item_list_controller = new ItemListController(item_list);
+
     private boolean on_create_update = false;
     private EditText email;
     private EditText username;
@@ -48,12 +51,10 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
 
         on_create_update = true;
 
-        contact_list_controller.addObserver(this);
-        contact_list_controller.loadContacts(context);
+        item_list_controller.addObserver(this);
+        item_list_controller.loadItems(context);
 
         on_create_update = false;
-
-        contact = contact_list_controller.getContact(pos);
 
         username.setText(contact_controller.getUsername());
         email.setText(contact_controller.getEmail());
@@ -109,12 +110,11 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
     }
 
     public void update() {
-//        if (on_create_update) {
-//            contact = contact_list_controller.getContact(pos);
-//            contact_controller = new ContactController(contact);
-//            username.setText(contact_controller.getUsername());
-//            email.setText(contact_controller.getEmail());
-//        }
-        return;
+        if (on_create_update) {
+            contact = contact_list_controller.getContact(pos);
+            contact_controller = new ContactController(contact);
+            username.setText(contact_controller.getUsername());
+            email.setText(contact_controller.getEmail());
+        }
     }
 }

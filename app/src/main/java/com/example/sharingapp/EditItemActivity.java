@@ -87,15 +87,20 @@ public class EditItemActivity extends AppCompatActivity implements Observer {
         Intent intent = getIntent(); // Get intent from ItemsFragment
         pos = intent.getIntExtra("position", 0);
 
+
         context = getApplicationContext();
+
 
         item_list_controller.addObserver(this);
         item_list_controller.loadItems(context);
 
+
         on_create_update = true;
+
 
         contact_list_controller.addObserver(this);
         contact_list_controller.loadContacts(context);
+
 
         on_create_update = false;
     }
@@ -199,7 +204,7 @@ public class EditItemActivity extends AppCompatActivity implements Observer {
 
 
         String id = item_controller.getId(); // Reuse the item id
-        Item updated_item = new Item(title_str, maker_str, description_str, new Dimensions(length_str, width_str, height_str), image, id);
+        Item updated_item = new Item(title_str, maker_str, description_str, image, id);
         ItemController updated_item_controller = new ItemController(updated_item);
         updated_item_controller.setDimensions(length_str, width_str, height_str);
 

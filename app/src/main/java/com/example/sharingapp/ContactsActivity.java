@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 /**
  * Displays a list of all contacts
@@ -25,7 +27,6 @@ public class ContactsActivity extends AppCompatActivity implements Observer {
 
     private ContactList active_borrowers_list = new ContactList();
     private ContactListController active_borrowers_list_controller = new ContactListController(active_borrowers_list);
-
 
     private ItemList item_list = new ItemList();
     private ItemListController item_list_controller = new ItemListController(item_list);
@@ -57,11 +58,19 @@ public class ContactsActivity extends AppCompatActivity implements Observer {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
 
 
+
                 Contact contact = adapter.getItem(pos);
+                System.out.println("long press idx["+ pos + "]: " + contact.getEmail());
+
 
 
                 // Do not allow an "active" borrower to be edited
-                active_borrowers_list_controller.setContacts(item_list_controller.getActiveBorrowers());
+
+                ContactList items_active_borrowers = new ContactList();
+                items_active_borrowers.setContacts(item_list_controller.getActiveBorrowers());
+                System.out.println("items_active_borrowers " + items_active_borrowers.getAllUsernames());
+                active_borrowers_list_controller.setContacts(items_active_borrowers.getContacts());
+
                 if (active_borrowers_list_controller != null) {
                     if (active_borrowers_list_controller.hasContact(contact)) {
                         CharSequence text = "Cannot edit or delete active borrower!";

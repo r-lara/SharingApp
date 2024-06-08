@@ -55,10 +55,11 @@ public class ItemList extends Observable {
             if (item.getId().equals(i.getId())) {
                 return pos;
             }
-            pos = pos+1;
+            pos = pos + 1;
         }
         return -1;
     }
+;
 
     public int getSize() {
         return items.size();

@@ -59,23 +59,19 @@ public class ItemController {
 
 
     public void setDimensions(String length, String width, String height) {
-        Dimensions dimensions = new Dimensions(length, width, height);
-        item.setDimensions(dimensions);
+        item.setDimensions(length, width, height);
     }
-
 
     public String getLength() {
-        return item.getDimensions().getLength();
+        return item.getLength();
     }
-
 
     public String getWidth(){
-        return item.getDimensions().getWidth();
+        return item.getWidth();
     }
 
-
     public String getHeight(){
-        return item.getDimensions().getHeight();
+        return item.getHeight();
     }
 
 

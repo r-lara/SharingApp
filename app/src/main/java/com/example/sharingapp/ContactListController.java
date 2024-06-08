@@ -79,9 +79,9 @@ public class ContactListController {
         contact_list.loadContacts(context);
     }
 
-    public boolean saveContacts(Context context) {
-        return contact_list.saveContacts(context);
-    }
+    //    public boolean saveContacts(Context context) {
+    //        return contact_list.saveContacts(context);
+    //    }
 
     public void addObserver(Observer observer) {
         contact_list.addObserver(observer);
